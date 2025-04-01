@@ -102,13 +102,13 @@ implements ConvertibleToSDKRequestsInterface, HaveOrderInterface
 
         $splitMainRecipient = new Split();
 
+	$splitMainRecipient->setCommission(
+		$this->getAmount() - $sellersTotalCommission
+	);
+
         $splitMainRecipient->setRecipientId($this->moduleConfig->getMarketplaceConfig()->getMainRecipientId());
         $splitMainRecipientRequest = $splitMainRecipient
             ->convertMainToSDKRequest();
-
-        $splitMainRecipient->setCommission(
-            $this->getAmount() - $sellersTotalCommission
-        );
 
         return [$splitMainRecipientRequest, $splitRecipientRequests];
     }
